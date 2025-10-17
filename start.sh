@@ -659,7 +659,7 @@ configSingBox() {
     fi
   fi
   echo "选择你要配置的项目（可多选，用空格分隔）:"
-  echo "1. vmess"
+  echo "1. trojan"
   echo "2. hy2"
   echo "3. socks5"
   echo "4. all"
@@ -679,8 +679,8 @@ configSingBox() {
     case "$choice" in
     1)
       echo "请选择协议(2选1):"
-      echo "1. argo+vmess"
-      echo "2. vmess+ws "
+      echo "1. argo+trojan"
+      echo "2. trojan+ws "
       read -p "请选择:" co
 
       if [[ "$co" != "1" && "$co" != "2" ]]; then
@@ -3886,8 +3886,8 @@ showMenu() {
   echo "请选择一个选项:"
 
   options=("安装/更新serv00-play项目" "sun-panel" "webssh" "阅后即焚" "linkalive" "设置保活的项目" "配置sing-box"
-    "运行sing-box" "停止sing-box" "显示sing-box节点信息" "快照恢复" "系统初始化" "前置工作及设置中国时区" "哪吒探针管理" "哪吒面板管理" "设置彩色开机字样" "显示本机IP"
-    "mtproto代理" "alist管理" "端口管理" "域名证书管理" "一键root" "自动检测主机IP状态" "一键更换hy2的IP" "KeepAlive" "Domains-Support" "卸载")
+  "运行sing-box" "停止sing-box" "显示sing-box节点信息" "快照恢复" "系统初始化" "前置工作及设置中国时区" "哪吒探针管理" "哪吒面板管理" "设置彩色开机签名"
+  "显示本机IP" "mtproto代理" "alist管理" "端口管理" "域名证书管理" "一键root" "自动检测主机IP状态" "一键更换hy2的IP" "KeepAlive" "Domains-Support" "卸载")
 
   select opt in "${options[@]}"; do
     case $REPLY in
