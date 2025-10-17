@@ -74,34 +74,41 @@ export_list() {
   if [[ "$GOOD_DOMAIN" == "null" ]]; then
     GOOD_DOMAIN="www.visa.com.hk"
   fi
-  vmessname="Argo-vmess-$host-$user"
+  
+  trojanname="Argo-trojan-$host-$user"
   hy2name="Hy2-$host-$user"
-  VMESSWS="{ \"v\":\"2\", \"ps\": \"Vmessws-${host}-${user}\", \"add\":\"$GOOD_DOMAIN\", \"port\":\"443\", \"id\": \"${UUID}\", \"aid\": \"0\",  \"scy\": \"none\",  \"net\": \"ws\",  \"type\": \"none\",  \"host\": \"${GOOD_DOMAIN}\",  \"path\": \"/${WSPATH}?ed=2048\",  \"tls\": \"tls\",  \"sni\": \"${GOOD_DOMAIN}\",  \"alpn\": \"\",  \"fp\": \"\"}"
-  ARGOVMESS="{ \"v\": \"2\", \"ps\": \"$vmessname\", \"add\": \"$GOOD_DOMAIN\", \"port\": \"443\", \"id\": \"${UUID}\", \"aid\": \"0\", \"scy\": \"none\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"${ARGO_DOMAIN}\", \"path\": \"/${WSPATH}?ed=2048\", \"tls\": \"tls\", \"sni\": \"${ARGO_DOMAIN}\", \"alpn\": \"\",  \"fp\": \"\" }"
+  
+  # Trojan + Argo 链接格式
+  ARGOTROJAN="trojan://${UUID}@${GOOD_DOMAIN}:443?security=tls&sni=${ARGO_DOMAIN}&type=ws&host=${ARGO_DOMAIN}&path=%2F${WSPATH}#${trojanname}"
+  
+  # Trojan + WS 链接格式（不通过 Argo）
+  TROJANWS="trojan://${UUID}@${GOOD_DOMAIN}:443?security=tls&sni=${GOOD_DOMAIN}&type=ws&host=${GOOD_DOMAIN}&path=%2F${WSPATH}#Trojanws-${host}-${user}"
+  
   hysteria2="hysteria2://$UUID@$myip:$HY2PORT/?sni=www.bing.com&alpn=h3&insecure=1#$hy2name"
   socks5="https://t.me/socks?server=${host}.$(getDoMain)&port=${SOCKS5_PORT}&user=${SOCKS5_USER}&pass=${SOCKS5_PASS}"
   proxyip="proxyip://${SOCKS5_USER}:${SOCKS5_PASS}@${host}.$(getDoMain):${SOCKS5_PORT}"
 
   cat >list <<EOF
 *******************************************
-V2-rayN:
+Clash/V2rayN/NekoBox:
 ----------------------------
 
-$([[ "$type" =~ ^(1.1|3.1|4.4|2.4)$ ]] && echo "vmess://$(echo ${ARGOVMESS} | base64 -w0)")
-$([[ "$type" =~ ^(1.2|3.2|4.5|2.5)$ ]] && echo "vmess://$(echo ${VMESSWS} | base64 -w0)")
+$([[ "$type" =~ ^(1.1|3.1|4.4|2.4)$ ]] && echo "$ARGOTROJAN")
+$([[ "$type" =~ ^(1.2|3.2|4.5|2.5)$ ]] && echo "$TROJANWS")
 $([[ "$type" =~ ^(2|3.3|3.1|3.2|4.4|4.5)$ ]] && echo $hysteria2 && echo "")
 $([[ "$type" =~ ^(1.3|2.4|2.5|3.3|4.4|4.5)$ ]] && echo $socks5 && echo "")
 $([[ "$type" =~ ^(1.3|2.4|2.5|3.3|4.4|4.5)$ ]] && echo $proxyip && echo "")
 
 EOF
   cat list
+  
   if [[ -e "${installpath}/serv00-play/linkalive/linkAlive.sh" ]]; then
     local domain=$(getUserDoMain)
     domain="${domain,,}"
     if [[ -e "${installpath}/domains/$domain/public_nodejs/config.json" ]]; then
       token=$(jq -r ".token" "${installpath}/domains/$domain/public_nodejs/config.json")
       if [[ -n "$token" ]]; then
-        content=$(cat ./list | grep -E "vmess|hyster")
+        content=$(cat ./list | grep -E "trojan|hyster")  # 改这里
         if uploadList "$token" "$content"; then
           echo " "
         fi
