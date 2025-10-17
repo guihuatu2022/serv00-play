@@ -296,7 +296,6 @@ restoreConfig() {
   fi
 }
 
-make_vmess_config() {
  make_trojan_config() {
   cat >temptrojan.json <<EOF
   {
