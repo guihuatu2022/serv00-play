@@ -296,27 +296,26 @@ restoreConfig() {
   fi
 }
 
-make_trojan_config() {
-  cat >temptrojan.json <<EOF
-{
-  "tag": "trojan-ws-in",
-  "type": "trojan",
-  "listen": "::",
-  "listen_port": $vmport,
-  "users": [
-    {
-      "password": "$uuid"
+make_vmess_config() {
+  cat >tempvmess.json <<EOF
+  {
+      "tag": "vmess-ws-in",
+      "type": "vmess",
+      "listen": "::",
+      "listen_port": $vmport,
+      "users": [
+      {
+        "uuid": "$uuid"
+      }
+    ],
+    "transport": {
+      "type": "ws",
+      "path": "/$wspath",
+      "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
     }
-  ],
-  "transport": {
-    "type": "ws",
-    "path": "/$wspath",
-    "early_data_header_name": "Sec-WebSocket-Protocol"
-  }
-}
 EOF
-},
-   
+}
 make_outbound_wireguard() {
   cat <<EOF
      {
@@ -411,17 +410,17 @@ generate_config() {
     openssl req -new -x509 -days 3650 -key "private.key" -out "cert.pem" -subj "/CN=www.bing.com"
   fi
   if [[ "$type" == "1.1" || "$type" == "1.2" ]]; then
-    make_trojan_config
+    make_vmess_config
   elif [ "$type" = "2" ]; then
     make_hy2_config
   elif [ "$type" = "1.3" ]; then
     make_socks5_config
   elif [[ "$type" =~ ^(2.4|2.5)$ ]]; then
-    make_trojan_config
+    make_vmess_config
     comma0=","
     make_socks5_config
   elif [[ "$type" =~ ^(3.1|3.2)$ ]]; then
-    make_trojan_config
+    make_vmess_config
     comma=","
     make_hy2_config
   elif [[ "$type" == "3.3" ]]; then
@@ -430,7 +429,7 @@ generate_config() {
     comma0=","
   else
     make_socks5_config
-    make_trojan_config
+    make_vmess_config
     make_hy2_config
     comma=","
     comma0=","
@@ -651,7 +650,7 @@ configSingBox() {
     fi
   fi
   echo "选择你要配置的项目（可多选，用空格分隔）:"
-  echo "1. trojan"
+  echo "1. vmess"
   echo "2. hy2"
   echo "3. socks5"
   echo "4. all"
@@ -671,8 +670,8 @@ configSingBox() {
     case "$choice" in
     1)
       echo "请选择协议(2选1):"
-      echo "1. argo+trojan"
-      echo "2. trojan+ws "
+      echo "1. argo+vmess"
+      echo "2. vmess+ws "
       read -p "请选择:" co
 
       if [[ "$co" != "1" && "$co" != "2" ]]; then
@@ -3878,8 +3877,8 @@ showMenu() {
   echo "请选择一个选项:"
 
   options=("安装/更新serv00-play项目" "sun-panel" "webssh" "阅后即焚" "linkalive" "设置保活的项目" "配置sing-box"
-  "运行sing-box" "停止sing-box" "显示sing-box节点信息" "快照恢复" "系统初始化" "前置工作及设置中国时区" "哪吒探针管理" "哪吒面板管理" "设置彩色开机签名"
-  "显示本机IP" "mtproto代理" "alist管理" "端口管理" "域名证书管理" "一键root" "自动检测主机IP状态" "一键更换hy2的IP" "KeepAlive" "Domains-Support" "卸载")
+    "运行sing-box" "停止sing-box" "显示sing-box节点信息" "快照恢复" "系统初始化" "前置工作及设置中国时区" "哪吒探针管理" "哪吒面板管理" "设置彩色开机字样" "显示本机IP"
+    "mtproto代理" "alist管理" "端口管理" "域名证书管理" "一键root" "自动检测主机IP状态" "一键更换hy2的IP" "KeepAlive" "Domains-Support" "卸载")
 
   select opt in "${options[@]}"; do
     case $REPLY in
