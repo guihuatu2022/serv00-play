@@ -316,14 +316,7 @@ make_trojan_config() {
 }
 EOF
 },
-    "transport": {
-      "type": "ws",
-      "path": "/$wspath",
-      "early_data_header_name": "Sec-WebSocket-Protocol"
-      }
-    }
-EOF
-}
+   
 make_outbound_wireguard() {
   cat <<EOF
      {
