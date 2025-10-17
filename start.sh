@@ -297,17 +297,26 @@ restoreConfig() {
 }
 
 make_vmess_config() {
-  cat >tempvmess.json <<EOF
+ make_trojan_config() {
+  cat >temptrojan.json <<EOF
   {
-      "tag": "vmess-ws-in",
-      "type": "vmess",
+      "tag": "trojan-ws-in",
+      "type": "trojan",
       "listen": "::",
       "listen_port": $vmport,
       "users": [
       {
-        "uuid": "$uuid"
+        "password": "$uuid"
       }
     ],
+    "transport": {
+      "type": "ws",
+      "path": "/$wspath",
+      "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    }
+EOF
+},
     "transport": {
       "type": "ws",
       "path": "/$wspath",
@@ -410,17 +419,17 @@ generate_config() {
     openssl req -new -x509 -days 3650 -key "private.key" -out "cert.pem" -subj "/CN=www.bing.com"
   fi
   if [[ "$type" == "1.1" || "$type" == "1.2" ]]; then
-    make_vmess_config
+    make_trojan_config
   elif [ "$type" = "2" ]; then
     make_hy2_config
   elif [ "$type" = "1.3" ]; then
     make_socks5_config
   elif [[ "$type" =~ ^(2.4|2.5)$ ]]; then
-    make_vmess_config
+    make_trojan_config
     comma0=","
     make_socks5_config
   elif [[ "$type" =~ ^(3.1|3.2)$ ]]; then
-    make_vmess_config
+    make_trojan_config
     comma=","
     make_hy2_config
   elif [[ "$type" == "3.3" ]]; then
@@ -429,7 +438,7 @@ generate_config() {
     comma0=","
   else
     make_socks5_config
-    make_vmess_config
+    make_trojan_config
     make_hy2_config
     comma=","
     comma0=","
