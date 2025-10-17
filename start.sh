@@ -296,24 +296,24 @@ restoreConfig() {
   fi
 }
 
- make_trojan_config() {
+make_trojan_config() {
   cat >temptrojan.json <<EOF
-  {
-      "tag": "trojan-ws-in",
-      "type": "trojan",
-      "listen": "::",
-      "listen_port": $vmport,
-      "users": [
-      {
-        "password": "$uuid"
-      }
-    ],
-    "transport": {
-      "type": "ws",
-      "path": "/$wspath",
-      "early_data_header_name": "Sec-WebSocket-Protocol"
-      }
+{
+  "tag": "trojan-ws-in",
+  "type": "trojan",
+  "listen": "::",
+  "listen_port": $vmport,
+  "users": [
+    {
+      "password": "$uuid"
     }
+  ],
+  "transport": {
+    "type": "ws",
+    "path": "/$wspath",
+    "early_data_header_name": "Sec-WebSocket-Protocol"
+  }
+}
 EOF
 },
     "transport": {
