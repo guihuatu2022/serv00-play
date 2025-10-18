@@ -332,19 +332,19 @@ for obj in "${monitor[@]}"; do
         msg="webssh 重启成功."
       fi
     fi
-  elif [ "$obj" == "vmess" ]; then
-    if ! checkvmessAlive; then
+  elif [ "$obj" == "trojan" ]; then
+    if ! checktrojanAlive; then
       cd ${installpath}/serv00-play/singbox
       chmod +x ./start.sh && ./start.sh 1 keep
       sleep 1
-      if ! checkvmessAlive; then
-        msg="vmess 重启失败."
+      if ! checktrojanAlive; then
+        msg="trojan 重启失败."
       else
-        msg="vmess 重启成功."
+        msg="trojan 重启成功."
       fi
     fi
-    #hy2和vmess+ws都只需要启动serv00sb，所以可以这么写
-  elif [[ "$obj" == "hy2/vmess+ws" || "$obj" == "hy2" ]]; then
+    #hy2和trojan+ws都只需要启动serv00sb，所以可以这么写
+  elif [[ "$obj" == "hy2/trojan+ws" || "$obj" == "hy2" ]]; then
     if ! checkHy2Alive; then
       #echo "重启serv00sb中..."
       cd ${installpath}/serv00-play/singbox

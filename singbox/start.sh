@@ -122,13 +122,13 @@ if [ "$keep" = "list" ]; then
   exit 0
 fi
 #echo "type:$type"
-#如果只有argo+vmess
+#如果只有argo+trojan
 #type=1,3 的处理只是为了兼容旧配置
 if [[ "$type" =~ ^(1|3|1.1|3.1|4.4|2.4)$ ]]; then
   run
 fi
 
-#如果只有hy2和vmess+ws/socks5
+#如果只有hy2和trojan+ws/socks5
 if [[ "$type" =~ ^(1.2|1.3|2|2.5|3.2|3.3|4.5)$ ]]; then
   r=$(ps aux | grep cloudflare | grep -v grep | awk '{print $2}')
   if [ -n "$r" ]; then
