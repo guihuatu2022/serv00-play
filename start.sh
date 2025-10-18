@@ -300,12 +300,12 @@ make_vmess_config() {
   cat >tempvmess.json <<EOF
   {
       "tag": "vmess-ws-in",
-      "type": "vmess",
+      "type": "trojan",
       "listen": "::",
       "listen_port": $vmport,
       "users": [
       {
-        "uuid": "$uuid"
+        "password": "$uuid"
       }
     ],
     "transport": {
