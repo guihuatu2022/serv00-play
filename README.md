@@ -1,4 +1,4 @@
-# serv00/hostuno 上的一些应用，包括 argo+vmess/vmess+ws/hy2/socks5/mtproto/alist/哪吒探针|面板/sun-panel/webssh 等, 自动化部署、批量保号、进程防杀、消息推送
+# serv00/hostuno 上的一些应用，包括 argo+trojan/trojan+ws/hy2/socks5/mtproto/alist/哪吒探针|面板/sun-panel/webssh 等, 自动化部署、批量保号、进程防杀、消息推送
 
 💖 如果你在用这个项目，请给我打个 star，好让我知道有多少人从这个项目中受益。
 
@@ -75,7 +75,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/guihuatu2022/serv00-play/refs/
 
 安装使用说明可以看[这里](https://youtu.be/ZCr7YiQX8Qs)  
 临时隧道已失效，请使用固定隧道名，[如何申请固定隧道名](https://youtu.be/KyMvtWknu-k)  
-argo+vmess 的搭建教学看[这里](https://youtu.be/nmb2F6uBKsg?si=v8twWIkIjsN8UYb-)
+argo+trojan 的搭建教学看[这里](https://youtu.be/nmb2F6uBKsg?si=v8twWIkIjsN8UYb-)
 
 由于本项目一直在迭代开发，界面会有些变化，想详细了解，可以看这一系列视频[serv00-play 系列](https://www.youtube.com/playlist?list=PLaMnUIjE3d5zArqlLzTU2oMZ0h-5VP6C0)
 
