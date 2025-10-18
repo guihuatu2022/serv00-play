@@ -29,7 +29,7 @@ checknezhaAgentAlive() {
   fi
 }
 
-checkvmessAlive() {
+checktrojanAlive() {
   local c=0
   if ps aux | grep serv00sb | grep -v "grep" >/dev/null; then
     ((c++))

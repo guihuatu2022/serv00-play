@@ -109,10 +109,10 @@ chooseSingbox() {
   if [ "$input" = "1" ]; then
     item+=("hy2/trojan+ws")
   elif [ "$input" = "2" ]; then
-    item+=("vmess")
+    item+=("trojan")
   elif [ "$input" = "3" ]; then
     item+=("hy2/trojan+ws")
-    item+=("vmess")
+    item+=("trojan")
   else
     red "无效选择!"
     return 1
@@ -589,7 +589,7 @@ localArgo() {
   fi
   green "你的cname域名为: $domain"
   port=""
-  randomPort tcp vmess
+  randomPort tcp trojan
   if [[ -n "$port" ]]; then
     vmport="$port"
   fi
@@ -695,7 +695,7 @@ configSingBox() {
           domain=""
           localArgo
         else
-          randomPort tcp vmess
+          randomPort tcp trojan
           if [[ -n "$port" ]]; then
             vmport="$port"
           fi
@@ -714,7 +714,7 @@ configSingBox() {
         fi
       else
         type=$(echo "$type + 1.2" | bc)
-        randomPort tcp vmess
+        randomPort tcp trojan
         if [[ -n "$port" ]]; then
           vmport="$port"
         else
@@ -781,7 +781,7 @@ configSingBox() {
           domain=""
           localArgo
         else
-          randomPort tcp vmess
+          randomPort tcp trojan
           if [[ -n "$port" ]]; then
             vmport="$port"
           else
@@ -803,7 +803,7 @@ configSingBox() {
         fi
       else
         type="3.2"
-        randomPort tcp vmess
+        randomPort tcp trojan
         if [[ -n "$port" ]]; then
           vmport="$port"
         else
@@ -2133,7 +2133,7 @@ addPortMenu() {
     type="udp"
   fi
   loadPort
-  read -p "请输入端口备注(如hy2，vmess，用于脚本自动获取端口):" opts
+  read -p "请输入端口备注(如hy2，trojan，用于脚本自动获取端口):" opts
   read -p "是否自动分配端口? [y/n] [y]:" input
   input=${input:-y}
   if [[ "$input" == "y" ]]; then
