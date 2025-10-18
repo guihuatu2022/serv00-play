@@ -101,17 +101,17 @@ showSingBoxInfo() {
 
 chooseSingbox() {
   echo "保活sing-box中哪个项目(单选): "
-  echo " 1.hy2/vmess+ws/socks5 "
-  echo " 2.argo+vmess "
+  echo " 1.hy2/trojan+ws/socks5 "
+  echo " 2.argo+trojan "
   echo " 3.all "
   read -p "请选择:" input
 
   if [ "$input" = "1" ]; then
-    item+=("hy2/vmess+ws")
+    item+=("hy2/trojan+ws")
   elif [ "$input" = "2" ]; then
     item+=("vmess")
   elif [ "$input" = "3" ]; then
-    item+=("hy2/vmess+ws")
+    item+=("hy2/trojan+ws")
     item+=("vmess")
   else
     red "无效选择!"
@@ -139,7 +139,7 @@ setConfig() {
 createConfigFile() {
   echo "选择你要保活的项目（可多选，用空格分隔）:"
   echo "1. sun-panel "
-  echo "2. sing-box(包含hy2，vmess，socks5) "
+  echo "2. sing-box(包含hy2，trojan，socks5) "
   echo "3. 哪吒探针 "
   echo "4. mtproto代理"
   echo "5. alist"
@@ -650,7 +650,7 @@ configSingBox() {
     fi
   fi
   echo "选择你要配置的项目（可多选，用空格分隔）:"
-  echo "1. vmess"
+  echo "1. trojan"
   echo "2. hy2"
   echo "3. socks5"
   echo "4. all"
@@ -670,8 +670,8 @@ configSingBox() {
     case "$choice" in
     1)
       echo "请选择协议(2选1):"
-      echo "1. argo+vmess"
-      echo "2. vmess+ws "
+      echo "1. argo+trojan"
+      echo "2. trojan+ws "
       read -p "请选择:" co
 
       if [[ "$co" != "1" && "$co" != "2" ]]; then
@@ -757,8 +757,8 @@ configSingBox() {
       ;;
     4)
       echo "请选择协议(2选1):"
-      echo "1. argo+vmess"
-      echo "2. vmess+ws "
+      echo "1. argo+trojan"
+      echo "2. trojan+ws "
       read -p "请选择:" co
 
       if [[ "$co" != "1" && "$co" != "2" ]]; then
